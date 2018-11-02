@@ -1,0 +1,6 @@
+"/home/tom/ros/catkin_ws/src/linemod_pose_est/config/data/triangle_board_linemod_carmine_templates.yml" "/home/tom/ros/catkin_ws/src/linemod_pose_est/config/data/triangle_board_linemod_carmine_renderer_params.yml" "/home/tom/ros/catkin_ws/src/linemod_pose_est/config/stl/triangle_board.STL" 85 35 1e-5 0.01 0.04 12 10 6
+
+"/home/yake/catkin_ws/src/linemod_pose_est/config/data/triangle_board_linemod_carmine_templates.yml" "/home/yake/catkin_ws/src/linemod_pose_est/config/data/triangle_board_linemod_carmine_renderer_params.yml" "/home/yake/catkin_ws/src/linemod_pose_est/config/stl/triangle_board.STL" 85 35 1e-5 0.01 0.04 8 10 10
+
+
+"/home/yake/catkin_ws/src/linemod_pose_est/config/data/square_board_linemod_carmine_templates.yml" "/home/yake/catkin_ws/src/linemod_pose_est/config/data/square_board_linemod_carmine_renderer_params.yml" "/home/yake/catkin_ws/src/linemod_pose_est/config/stl/square_board.STL" 85 35 1e-5 0.01 0.04 12 10 6
