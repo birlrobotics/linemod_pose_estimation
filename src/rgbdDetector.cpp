@@ -244,9 +244,9 @@ double rgbdDetector::depth_diff(Mat& depth_img,Mat& depth_template,cv::Mat& temp
     //And operation. Only valid points in both images will be considered.
     Mat mask;
     bitwise_and(template_mask,depth_mask,mask);
-    cv::imshow("template mask",template_mask);
-    cv::imshow("template mask2",template_mask2);
-    cv::imshow("depth_mask",depth_mask);
+    // cv::imshow("template mask",template_mask);
+    // cv::imshow("template mask2",template_mask2);
+    // cv::imshow("depth_mask",depth_mask);
 //    cv::imshow("bitwise_mask",mask);
 //    cv::waitKey(0);
 

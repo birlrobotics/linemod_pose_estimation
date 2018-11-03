@@ -74,6 +74,11 @@ uchar clustering_step;
 float orientation_clustering_step;
 int nms_neighbor_size;
 
+std::string linemod_template_path1;
+std::string renderer_param_path1;
+std::string model_stl_path1;
+float detect_score_th1;
+
 struct LinemodData
 {
   LinemodData
@@ -259,10 +264,10 @@ public:
 
     virtual ~linemod_detect()
     {
-        if(accumulator)
-            free(accumulator);
-        delete renderer_;
-        delete renderer_iterator_;
+//        if(accumulator)
+//            free(accumulator);
+//        delete renderer_;
+//        delete renderer_iterator_;
     }
 
     void detect_cb(const sensor_msgs::Image& msg_rgb,sensor_msgs::PointCloud2 pc,bool is_rgb,vector<ClusterData>& cluster_datas)
@@ -290,8 +295,8 @@ public:
             mixChannels(&mat_grey,1,&mat_rgb,1,from_to,3);
 
             //imshow("grey",mat_grey);
-            imshow("conbined_gray",mat_rgb);
-            waitKey(waittime);
+//            imshow("conbined_gray",mat_rgb);
+//            waitKey(waittime);
         }
 
         //Convert pointcloud2 msg to PCL
@@ -355,10 +360,10 @@ public:
         }
         Mat gray_initial_img,mat_gray_crop;
         cvtColor(mat_rgb_crop,mat_gray_crop,COLOR_BGR2GRAY);
-        imshow("origin",mat_gray_crop);
-        imshow("origin_rgb",mat_rgb_crop);
-        imshow("initial",initial_img);
-        cv::waitKey (waittime);
+//        imshow("origin",mat_gray_crop);
+//        imshow("origin_rgb",mat_rgb_crop);
+//        imshow("initial",initial_img);
+//        cv::waitKey (waittime);
 
 
         //******************************************   2  Clustering based on Row,Col,Depth  ********************
@@ -382,8 +387,8 @@ public:
                 rectangle(cluster_img,rect_tmp,color,2);
                 }
         }
-        imshow("cluster",cluster_img);
-        cv::waitKey (waittime);
+//        imshow("cluster",cluster_img);
+//        cv::waitKey (waittime);
 
 
         //******************************************   3  filter less than tresh map_match  ********************
@@ -406,8 +411,8 @@ public:
                 rectangle(cluster_filter_img,rect_tmp,Scalar(0,0,255),2);
                 }
         }
-        imshow("cluster_filter",cluster_filter_img);
-        cv::waitKey (waittime);
+//        imshow("cluster_filter",cluster_filter_img);
+//        cv::waitKey (waittime);
 
 
         //*******************************   4  create cluster_data and feed it cluster_average_score , index  ********************
@@ -456,8 +461,8 @@ public:
     //        }
     //        Mat gray_nms_img;
     //        cvtColor(nms_img,gray_nms_img,COLOR_BGR2GRAY);
-            imshow("nms",nms_img);
-            cv::waitKey (waittime);
+//            imshow("nms",nms_img);
+//            cv::waitKey (waittime);
         }
 
 
@@ -581,8 +586,8 @@ public:
         {
           rectangle(final,cluster_data[i].rect,Scalar(0,0,255),2);
         }
-        imshow("display",final);
-        cv::waitKey (waittime);
+        imshow("display0",final);
+        cv::waitKey (500);
 
         //Viz in point cloud
 //        vizResultPclViewer(cluster_data,pc_ptr);
@@ -1105,10 +1110,10 @@ public:
 
     virtual ~linemod_detect1()
     {
-        if(accumulator)
-            free(accumulator);
-        delete renderer1_;
-        delete renderer_iterator1_;
+//        if(accumulator)
+//            free(accumulator);
+//        delete renderer1_;
+//        delete renderer_iterator1_;
     }
 
     void detect_cb(const sensor_msgs::Image& msg_rgb,sensor_msgs::PointCloud2 pc,bool is_rgb,vector<ClusterData>& cluster_datas)
@@ -1136,8 +1141,8 @@ public:
             mixChannels(&mat_grey,1,&mat_rgb,1,from_to,3);
 
             //imshow("grey",mat_grey);
-            imshow("conbined_gray",mat_rgb);
-            waitKey(waittime);
+//            imshow("conbined_gray",mat_rgb);
+//            waitKey(waittime);
         }
 
         //Convert pointcloud2 msg to PCL
@@ -1201,10 +1206,10 @@ public:
         }
         Mat gray_initial_img,mat_gray_crop;
         cvtColor(mat_rgb_crop,mat_gray_crop,COLOR_BGR2GRAY);
-        imshow("origin",mat_gray_crop);
-        imshow("origin_rgb",mat_rgb_crop);
-        imshow("initial",initial_img);
-        cv::waitKey (waittime);
+//        imshow("origin",mat_gray_crop);
+//        imshow("origin_rgb",mat_rgb_crop);
+//        imshow("initial",initial_img);
+//        cv::waitKey (waittime);
 
 
         //******************************************   2  Clustering based on Row,Col,Depth  ********************
@@ -1228,8 +1233,8 @@ public:
                 rectangle(cluster_img,rect_tmp,color,2);
                 }
         }
-        imshow("cluster",cluster_img);
-        cv::waitKey (waittime);
+//        imshow("cluster",cluster_img);
+//        cv::waitKey (waittime);
 
 
         //******************************************   3  filter less than tresh map_match  ********************
@@ -1252,8 +1257,8 @@ public:
                 rectangle(cluster_filter_img,rect_tmp,Scalar(0,0,255),2);
                 }
         }
-        imshow("cluster_filter",cluster_filter_img);
-        cv::waitKey (waittime);
+//        imshow("cluster_filter",cluster_filter_img);
+//        cv::waitKey (waittime);
 
 
         //*******************************   4  create cluster_data and feed it cluster_average_score , index  ********************
@@ -1302,8 +1307,8 @@ public:
     //        }
     //        Mat gray_nms_img;
     //        cvtColor(nms_img,gray_nms_img,COLOR_BGR2GRAY);
-            imshow("nms",nms_img);
-            cv::waitKey (waittime);
+//            imshow("nms",nms_img);
+//            cv::waitKey (waittime);
         }
 
 
@@ -1427,8 +1432,8 @@ public:
         {
           rectangle(final,cluster_data[i].rect,Scalar(0,0,255),2);
         }
-        imshow("display",final);
-        cv::waitKey (waittime);
+        imshow("display1",final);
+        cv::waitKey (500);
 
         //Viz in point cloud
 //        vizResultPclViewer(cluster_data,pc_ptr, "vv");
@@ -1839,16 +1844,16 @@ Eigen::Affine3d tfbaseTotool0()
 geometry_msgs::Transform affineTotrans(Eigen::Affine3d input)
 {
     geometry_msgs::Transform pose_tf;
-    pose_tf.translation.x = input.translation()[0];   // - 0.025
-    pose_tf.translation.y = input.translation()[1];         // +0.01
-    pose_tf.translation.z = input.translation()[2];
+    pose_tf.translation.x = float(input.translation()[0]);   // - 0.025
+    pose_tf.translation.y = float(input.translation()[1]);         // +0.01
+    pose_tf.translation.z = float(input.translation()[2]);
 
     Eigen::Vector4d R_quat_vec(0.0,0.0,0.0,0.0);
     R_quat_vec=Eigen::Quaterniond(input.linear()).coeffs();  //qw,qx,qy,qz maybe error,so i use qx,qy,qz,qw
-    pose_tf.rotation.x = R_quat_vec[0];                                     // yes, it is right;
-    pose_tf.rotation.y = R_quat_vec[1];
-    pose_tf.rotation.z = R_quat_vec[2];
-    pose_tf.rotation.w = R_quat_vec[3];
+    pose_tf.rotation.x = float(R_quat_vec[0]);                                     // yes, it is right;
+    pose_tf.rotation.y = float(R_quat_vec[1]);
+    pose_tf.rotation.z = float(R_quat_vec[2]);
+    pose_tf.rotation.w = float(R_quat_vec[3]);
 
     return pose_tf;
 }
@@ -1880,9 +1885,13 @@ bool linemod_pose_callback(linemod_pose_estimation::linemod_pose::Request &req,
                Eigen::Affine3d pose_tool0Tdep;
                pose_tool0Tdep = getTool0toDepthTF(0.0672827, -0.0546864, 0.0466534, 0.701074, 2.999e-05, 0.00514592, 0.71307);
 
+               std::cout<<"pose_tool0Tdep = " << pose_tool0Tdep.translation()[0]<<"  "<< pose_tool0Tdep.translation()[1]<<endl;
+
                //tf listern base to tool0
                Eigen::Affine3d pose_baseTtool0;
                pose_baseTtool0 = tfbaseTotool0();
+
+               std::cout<< "pose_baseTtool0 = " << pose_baseTtool0.translation()[0]<<"  "<< pose_baseTtool0.translation()[1]<<endl;
 
                //tf Template matching computation depth to obj
                Eigen::Affine3d pose_depTobj;
@@ -1891,6 +1900,8 @@ bool linemod_pose_callback(linemod_pose_estimation::linemod_pose::Request &req,
                //tf calculate base to obj
                Eigen::Affine3d pose_baseTobj;
                pose_baseTobj = pose_baseTtool0 * pose_tool0Tdep * pose_depTobj;
+
+               std::cout<< "pose_baseTobj = " << pose_baseTobj.translation()[0]<<"  "<< pose_baseTobj.translation()[1]<<endl;
 
                //change Affine3d to geometry_msgs::Transform for publish
                geometry_msgs::Transform pose_publish;
@@ -1904,13 +1915,15 @@ bool linemod_pose_callback(linemod_pose_estimation::linemod_pose::Request &req,
 
        else
        {
-           res.pose.translation.x = 0;
-           res.pose.translation.y = 0;
-           res.pose.translation.z = 0;
-           res.pose.rotation.x = 0;
-           res.pose.rotation.y = 0;
-           res.pose.rotation.z = 0;
-           res.pose.rotation.w = 0;
+           cout<<"no memory chip "<<endl;
+
+           res.pose.translation.x = 0.0;
+           res.pose.translation.y = 0.0;
+           res.pose.translation.z = 0.0;
+           res.pose.rotation.x = 0.0;
+           res.pose.rotation.y = 0.0;
+           res.pose.rotation.z = 0.0;
+           res.pose.rotation.w = 1.0;
 
            return true;
        }
@@ -1918,8 +1931,8 @@ bool linemod_pose_callback(linemod_pose_estimation::linemod_pose::Request &req,
 
    else if(req.object_id == 1)
    {
-       linemod_detect1 detector1(linemod_template_path,renderer_param_path,model_stl_path,
-                                 detect_score_th,icp_max_iter,icp_tr_epsilon,icp_fitness_th,
+       linemod_detect1 detector1(linemod_template_path1,renderer_param_path1,model_stl_path1,
+                                 detect_score_th1,icp_max_iter,icp_tr_epsilon,icp_fitness_th,
                                  icp_maxCorresDist,clustering_step,orientation_clustering_step);
        detector1.setNonMaximumSuppressionRadisu(nms_neighbor_size);
 
@@ -1934,13 +1947,17 @@ bool linemod_pose_callback(linemod_pose_estimation::linemod_pose::Request &req,
        {
            for(vector<ClusterData>::iterator it_target=targets.begin();it_target!=targets.end();++it_target)
            {
-               //tf from tool0 to depth camera; it is mean eye in hand result
+                             //tf from tool0 to depth camera; it is mean eye in hand result
                Eigen::Affine3d pose_tool0Tdep;
                pose_tool0Tdep = getTool0toDepthTF(0.0672827, -0.0546864, 0.0466534, 0.701074, 2.999e-05, 0.00514592, 0.71307);
+
+               std::cout<<"pose_tool0Tdep = " << pose_tool0Tdep.translation()[0]<<"  "<< pose_tool0Tdep.translation()[1]<<endl;
 
                //tf listern base to tool0
                Eigen::Affine3d pose_baseTtool0;
                pose_baseTtool0 = tfbaseTotool0();
+
+               std::cout<< "pose_baseTtool0 = " << pose_baseTtool0.translation()[0]<<"  "<< pose_baseTtool0.translation()[1]<<endl;
 
                //tf Template matching computation depth to obj
                Eigen::Affine3d pose_depTobj;
@@ -1950,6 +1967,7 @@ bool linemod_pose_callback(linemod_pose_estimation::linemod_pose::Request &req,
                Eigen::Affine3d pose_baseTobj;
                pose_baseTobj = pose_baseTtool0 * pose_tool0Tdep * pose_depTobj;
 
+               std::cout<< "pose_baseTobj = " << pose_baseTobj.translation()[0]<<"  "<< pose_baseTobj.translation()[1]<<endl;
                //change Affine3d to geometry_msgs::Transform for publish
                geometry_msgs::Transform pose_publish;
                pose_publish = affineTotrans(pose_baseTobj);
@@ -1962,13 +1980,15 @@ bool linemod_pose_callback(linemod_pose_estimation::linemod_pose::Request &req,
 
        else
        {
-           res.pose.translation.x = 0;
-           res.pose.translation.y = 0;
-           res.pose.translation.z = 0;
-           res.pose.rotation.x = 0;
-           res.pose.rotation.y = 0;
-           res.pose.rotation.z = 0;
-           res.pose.rotation.w = 0;
+           cout<<"no cup "<<endl;
+
+           res.pose.translation.x = 0.0;
+           res.pose.translation.y = 0.0;
+           res.pose.translation.z = 0.0;
+           res.pose.rotation.x = 0.0;
+           res.pose.rotation.y = 0.0;
+           res.pose.rotation.z = 0.0;
+           res.pose.rotation.w = 1.0;
 
            return true;
        }
@@ -1995,10 +2015,10 @@ int main(int argc,char** argv)
     nms_neighbor_size=atoi(argv[11]);
 
     // do for cpu
-    linemod_template_path=argv[12];
-    renderer_param_path=argv[13];
-    model_stl_path=argv[14];
-    detect_score_th=atof(argv[15]);
+    linemod_template_path1=argv[12];
+    renderer_param_path1=argv[13];
+    model_stl_path1=argv[14];
+    detect_score_th1=atof(argv[15]);
 
     ros::NodeHandle nh2;
 
