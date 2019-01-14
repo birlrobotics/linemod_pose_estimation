@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="basic_path" default="$(find linemod_pose_estimation)/config"/>
+    <arg name="args1" default="$(arg basic_path)/data/memoryChip2_ensenso_templates.yml"/>
+    <arg name="args2" default="$(arg basic_path)/data/memoryChip2_ensenso_renderer_params.yml"/>
+    <arg name="args3" default="$(arg basic_path)/stl/memoryChip2.stl"/>
+    <arg name="args4" default="92"/>
+    <arg name="args5" default="150"/>
+    <arg name="args6" default="1e-5"/>
+    <arg name="args7" default="0.02"/>
+    <arg name="args8" default="0.05"/>
+    <arg name="args9" default="20"/>
+    <arg name="args10" default="10"/>
+    <arg name="args11" default="4"/>
+    <arg name="args12" default="$(arg basic_path)data/cpu_binary_ensenso_templates.yml"/>
+    <arg name="args13" default="$(arg basic_path)data/cpu_binary_ensenso_renderer_params.yml"/>
+    <arg name="args14" default="$(arg basic_path)/stl/cpu_binary.stl"/>
+    <arg name="args15" default="94"/>
+
+    <include file="$(find ensenso)/launch/ensenso_bringup.launch"></include>
+
+    <include file="$(find linemod_pose_estimation)/launch/tool0_ensenor_transform.launch"></include>
+
+    <node pkg="linemod_pose_estimation" type="linemod_ensenso_detect_3_mult_detect_service_node" name="linemod_ensenso_detect_node" 
+    output="screen" 
+    args="$(arg args1) $(arg args2) $(arg args3) $(arg args4) $(arg args5) $(arg args6) $(arg args7) $(arg args8) $(arg args9)
+    $(arg args10) $(arg args11) $(arg args12) $(arg args13) $(arg args14) $(arg args15)"/>
+
+
+
+</launch>
