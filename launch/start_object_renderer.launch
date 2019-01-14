@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="basic_path" default="$(find linemod_pose_estimation)/config"/>
+    
+    <arg name="args1" default="270"/>  <!-- Number of view points for rendering -->
+    <arg name="args2" default="5"/>    <!-- angle step -->
+    <arg name="args3" default="0.4"/>  <!-- minmal distrance bwt camera and object -->
+    <arg name="args4" default="0.65"/> <!-- maxmal distrance bwt camera and object -->
+    <arg name="args5" default="0.05"/> <!-- distrance step-->
+    <arg name="args6" default="752"/>  <!-- image width-->
+    <arg name="args7" default="480"/>  <!-- image height-->
+    <arg name="args8" default="0.1"/>  <!-- nearest distance-->
+    <arg name="args9" default="1000.0"/> <!-- fastest distance-->
+    <arg name="args10" default="826.119324"/> <!-- camera focal length x-->
+    <arg name="args11" default="826.119324"/> <!-- camera focal length y-->
+    <arg name="args12" default="$(arg basic_path)/stl/cpu_binary.stl"/> <!-- stl tempalate path-->
+    <arg name="args13" default="$(arg basic_path)data/cpu_binary_test_ensenso_templates.yml"/> <!-- trained tempalate output path-->
+    <arg name="args14" default="$(arg basic_path)data/cpu_binary_test_ensenso_renderer_params.yml"/> <!-- trained tempalate output parm-->
+    
+    <node pkg="linemod_pose_estimation" type="renderer_only_image_node" name="renderer_only_image_node" 
+    output="screen" 
+    args="$(arg args1) $(arg args2) $(arg args3) $(arg args4) $(arg args5) $(arg args6) $(arg args7) $(arg args8) $(arg args9)
+    $(arg args10) $(arg args11) $(arg args12) $(arg args13) $(arg args14)"/>
+
+</launch>

@@ -1258,8 +1258,6 @@ public:
                 rectangle(cluster_filter_img,rect_tmp,Scalar(0,0,255),2);
                 }
         }
-//        imshow("cluster_filter",cluster_filter_img);
-//        cv::waitKey (waittime);
 
 
         //*******************************   4  create cluster_data and feed it cluster_average_score , index  ********************
@@ -1297,19 +1295,7 @@ public:
               Scalar color_(rng.uniform(0,255),rng.uniform(0,255),rng.uniform(0,255));
               rectangle(nms_img,cluster_data[i].rect,color_,2);
             }
-    //        for(vector<ClusterData>::iterator it_c = cluster_data.begin();it_c != cluster_data.end();++it_c)
-    //        {
-    //            vector<linemod::Match> matches_tmp = it_c->matches;
-    //            for(std::vector<linemod::Match>::iterator it= matches_tmp.begin();it != matches_tmp.end();it++)
-    //            {
-    //                std::vector<cv::linemod::Template> templates=detector->getTemplates(it->class_id, it->template_id);
-    //                drawResponse(templates, 1, nms_img,cv::Point(it->x,it->y), 2);
-    //            }
-    //        }
-    //        Mat gray_nms_img;
-    //        cvtColor(nms_img,gray_nms_img,COLOR_BGR2GRAY);
-//            imshow("nms",nms_img);
-//            cv::waitKey (waittime);
+
         }
 
 
@@ -1327,82 +1313,11 @@ public:
             t=(cv::getTickCount ()-t)/cv::getTickFrequency ();
             cout<<"Time consumed by pose clustering: "<<t<<endl;
 
-
-//            // trim scene pc use region growing and smooth ---------------------------------------------------------
-//            t=cv::getTickCount ();
-//            for(vector<ClusterData>::iterator it_c = cluster_data.begin();it_c != cluster_data.end();++it_c)
-//            {
-//                if(!it_c->scene_pc->empty())
-//                {
-//                    PointCloudXYZ::Ptr pc_reg_tmp1(new PointCloudXYZ);
-//                    PointCloudXYZ::Ptr pc_reg_tmp2(new PointCloudXYZ);
-//                    PointCloudXYZ::Ptr pc_reg_tmp3(new PointCloudXYZ);
-////                    rgbd_detector.viz_pc(it_c->scene_pc);
-//                    rgbd_detector.mls_smooth(it_c->scene_pc,0.01,pc_reg_tmp1);
-//                    rgbd_detector.regionGrowingseg(it_c->scene_pc ,pc_reg_tmp2 ,6.0 ,0.05);     //origin is 7.0, 0.02
-//                    rgbd_detector.mls_smooth(it_c->scene_pc,0.01,pc_reg_tmp3);
-////                    rgbd_detector.viz_pc(it_c->scene_pc);
-//                }
-
-//            }
-//            t=(cv::getTickCount ()-t)/cv::getTickFrequency ();
-//            cout<<"Time consumed by smooth and regionGrowing: "<<t<<endl;
-
-            //****************************   7  Pose refinement by icp   ************************************
-            /*
-              the last param is means is_viz , false means not viz;
-              input: cluster_data,icp
-              output: it->model, it->pose(update)
-             */
             t=cv::getTickCount ();
             rgbd_detector1.icpPoseRefine(cluster_data,icp,pc_ptr,image_width,bias_x,false);
             t=(cv::getTickCount ()-t)/cv::getTickFrequency ();
             cout<<"Time consumed by pose refinement: "<<t<<endl;
         }
-
-
-//        t=cv::getTickCount ();
-//        for(int i=0;i<cluster_data.size();++i)
-//        {
-//              rgbd_detector.templateRefinementEnsenso(cluster_data[i],pc_ptr,icp,renderer_iterator_);
-//        }
-//        t=(cv::getTickCount ()-t)/cv::getTickFrequency ();
-//        cout<<"Time consumed by templateRefinement: "<<t<<endl;
-
-        //Viz corresponding scene pc
-//        for(int i=0;i<cluster_data.size();++i)
-//            {
-//            pcl::visualization::PCLVisualizer::Ptr v(new pcl::visualization::PCLVisualizer("view"));
-//            v->setBackgroundColor(255,255,255);
-//            pcl::visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> color(cluster_data[i].scene_pc,0,0,0);
-//            v->addPointCloud(cluster_data[i].scene_pc,color,"cloud");
-//            v->spin();
-//        }
-
-
-        //Hypothesis verification
-//        rgbd_detector.hypothesisVerification(cluster_data,0.004,0.20,false);
-
-        //Display all the bounding box
-//        scene_pc_pub.publish (pc_ptr);
-//        for(vector<ClusterData>::iterator it = cluster_data.begin();it!=cluster_data.end();++it)
-//        {
-//            //Display all grasping pose
-//            Eigen::Affine3d grasp_pose;
-////            rgbd_detector.graspingPoseBasedOnRegionGrowing (it->scene_pc,0.005,grasp_pose);
-//            graspingPoseBasedOnRegionGrowing (it->scene_pc,0.005,grasp_pose);
-
-//            tf::Transform grasp_pose_tf_viz;
-//            tf::poseEigenToTF(grasp_pose,grasp_pose_tf_viz);
-//            tf::TransformBroadcaster tf_broadcaster;
-//            tf_broadcaster.sendTransform (tf::StampedTransform(grasp_pose_tf_viz,ros::Time::now(),"camera_link","grasp_frame"));
-
-//            rectangle(display,it->rect,Scalar(0,0,255),2);
-//            model_pc_pub.publish (it->model_pc,it->pose,cv::Scalar(255,0,0));
-//            scene_cropped_pc_pub.publish(it->scene_pc,it->pose,cv::Scalar(0,255,0));
-//            imshow("display",display);
-//            cv::waitKey (0);
-//        }
 
         //change pose direction
         for(vector<ClusterData>::iterator it = cluster_data.begin();it!=cluster_data.end();++it)

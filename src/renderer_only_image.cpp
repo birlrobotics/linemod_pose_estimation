@@ -151,22 +151,22 @@ int main(int argc,char** argv)
     std::string renderer_params_output_path;
 
 
-    if(argc<8)
+    if(argc>8)
     {
-        renderer_n_points_ = 270;     // it most maybe is plane average view points
-        renderer_angle_step_ = 5;     // (100-(-100))/3, it not influenced by is_restricted
-        renderer_radius_min_ = 0.45;
-        renderer_radius_max_ = 0.65;
-        renderer_radius_step_ = 0.035;
-        renderer_width_ = 752;
-        renderer_height_ = 480;
-        renderer_near_ = 0.1;
-        renderer_far_ = 1000.0;
-        renderer_focal_length_x_ = 826.119324;//Kinect ;//carmine 535.566011; //dataset 571.9737
-        renderer_focal_length_y_ = 826.119324;//Kinect //carmine 537.168115;  //dataset 571.0073
-        stl_file="/home/birl-spai-ubuntu14/ur_ws/src/linemod_pose_estimation/config/stl/memoryChip2.stl";
-        template_output_path="/home/birl-spai-ubuntu14/ur_ws/src/linemod_pose_estimation/config/data/memoryChip2_0_ensenso_templates.yml";
-        renderer_params_output_path="/home/birl-spai-ubuntu14/ur_ws/src/linemod_pose_estimation/config/data/memoryChip2_0_ensenso_renderer_params.yml";
+        renderer_n_points_ = atoi(argv[1]);     // it most maybe is plane average view points
+        renderer_angle_step_ = atoi(argv[2]);     // (100-(-100))/3, it not influenced by is_restricted
+        renderer_radius_min_ = atof(argv[3]);
+        renderer_radius_max_ = atof(argv[4]);
+        renderer_radius_step_ = atof(argv[5]);
+        renderer_width_ = atoi(argv[6]);
+        renderer_height_ = atoi(argv[7]);
+        renderer_near_ = atof(argv[8]);
+        renderer_far_ = atof(argv[9]);
+        renderer_focal_length_x_ = atof(argv[10]);//Kinect ;//carmine 535.566011; //dataset 571.9737
+        renderer_focal_length_y_ = atof(argv[11]);//Kinect //carmine 537.168115;  //dataset 571.0073
+        stl_file=argv[12];
+        template_output_path=argv[13];
+        renderer_params_output_path=argv[14];
 
     }
     else
