@@ -61,6 +61,7 @@ bool sortPointSize(const vector<Point>& contours1,const vector<Point>& contours2
     return(contours1.size()>contours2.size());
 }
 
+#include <typeinfo>
 
 std::string chip_template_path;
 std::string chip_renderer_param_path;
@@ -78,6 +79,8 @@ std::string cpu_template_path;
 std::string cpu_renderer_param_path;
 std::string cpu_model_stl_path;
 float cpu_detect_score_th;
+
+bool DEBUG;
 
 struct LinemodData
 {
@@ -214,8 +217,6 @@ public:
         pc_rgb_pub_=nh.advertise<sensor_msgs::PointCloud2>("ensenso_rgb_pc",1);
         extract_pc_pub = nh.advertise<sensor_msgs::PointCloud2>("/render_pc",1);
         object_pose = nh.advertise<geometry_msgs::Transform>("object_pose",100);
-
-        cout<<"templeate file name = "<<template_file_name<<endl;
 
         threshold=detect_score_threshold;
 
@@ -2024,10 +2025,41 @@ int main(int argc,char** argv)
     cpu_model_stl_path=argv[14];
     cpu_detect_score_th=atof(argv[15]);
 
-    std::cout<< "chip_template_path: " << chip_template_path << std::endl;
-    std::cout<< "chip_renderer_param_path: " << chip_renderer_param_path << std::endl;
-    std::cout<< "chip_model_stl_path: " << chip_model_stl_path << std::endl;
-    std::cout<< "chip_detect_score_th: " << chip_detect_score_th << std::endl;
+    // debug switcher
+    DEBUG = false;
+    if(DEBUG)
+    {
+        std::cout<< "chip_template_path: " << chip_template_path <<"  type: "<< typeid(chip_template_path).name() << std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "chip_renderer_param_path: " << chip_renderer_param_path <<"  type: "<< typeid(chip_renderer_param_path).name()<<std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "chip_model_stl_path: " << chip_model_stl_path << "  type: "<< typeid(chip_renderer_param_path).name()<<std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "chip_detect_score_th: " << chip_detect_score_th << "  type: "<< typeid(chip_renderer_param_path).name()<< std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "icp_max_iter: " << icp_max_iter << "  type: "<< typeid(icp_max_iter).name()<< std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "icp_tr_epsilon: " << icp_tr_epsilon << "  type: "<< typeid(icp_tr_epsilon).name()<< std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "icp_fitness_th: " << icp_fitness_th << "  type: "<< typeid(icp_fitness_th).name()<< std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "icp_maxCorresDist: " << icp_maxCorresDist << "  type: "<< typeid(icp_maxCorresDist).name()<< std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "clustering_step: " << clustering_step << "  type: "<< typeid(clustering_step).name()<< std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "orientation_clustering_step: " << orientation_clustering_step << "  type: "<< typeid(orientation_clustering_step).name()<< std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "nms_neighbor_size: " << nms_neighbor_size << "  type: "<< typeid(nms_neighbor_size).name()<< std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "cpu_template_path: " << cpu_template_path << "  type: "<< typeid(cpu_template_path).name()<< std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "cpu_renderer_param_path: " << cpu_renderer_param_path << "  type: "<< typeid(cpu_renderer_param_path).name()<< std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "cpu_model_stl_path: " << cpu_model_stl_path << "  type: "<< typeid(cpu_model_stl_path).name()<< std::endl;
+        std::cout<<"----------------"<<std::endl;
+        std::cout<< "cpu_detect_score_th: " << cpu_detect_score_th << "  type: "<< typeid(cpu_detect_score_th).name()<< std::endl;
+        std::cout<<"----------------"<<std::endl;
+    }
 
 
     ros::NodeHandle nh2;

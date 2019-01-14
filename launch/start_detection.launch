@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <launch>
     <arg name="basic_path" default="$(find linemod_pose_estimation)/config"/>
-    <arg name="args1" default="$(arg basic_path)/data/ChipEnsensoParam_ur3.yml"/>
-    <arg name="args2" default="$(arg basic_path)/data/ChipEnsensoTemplates_ur3.yml"/>
+    
+    <arg name="args1" default="$(arg basic_path)/data/ChipEnsensoTemplates_ur3.yml"/> 
+    <arg name="args2" default="$(arg basic_path)/data/ChipEnsensoParam_ur3.yml"/>
     <arg name="args3" default="$(arg basic_path)/stl/memoryChip2.stl"/>
-    <arg name="args4" default="80"/> 
+    <arg name="args4" default="92"/> 
     <arg name="args5" default="150"/>
     <arg name="args6" default="1e-5"/>
     <arg name="args7" default="0.02"/>
