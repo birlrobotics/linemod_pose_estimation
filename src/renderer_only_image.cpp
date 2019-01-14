@@ -155,8 +155,8 @@ int main(int argc,char** argv)
     {
         renderer_n_points_ = 270;     // it most maybe is plane average view points
         renderer_angle_step_ = 5;     // (100-(-100))/3, it not influenced by is_restricted
-        renderer_radius_min_ = 0.30;
-        renderer_radius_max_ = 0.45;
+        renderer_radius_min_ = 0.45;
+        renderer_radius_max_ = 0.65;
         renderer_radius_step_ = 0.035;
         renderer_width_ = 752;
         renderer_height_ = 480;
@@ -164,9 +164,9 @@ int main(int argc,char** argv)
         renderer_far_ = 1000.0;
         renderer_focal_length_x_ = 826.119324;//Kinect ;//carmine 535.566011; //dataset 571.9737
         renderer_focal_length_y_ = 826.119324;//Kinect //carmine 537.168115;  //dataset 571.0073
-        stl_file="/home/csl/catkin_ws/src/linemod_pose_est/config/stl/cpu_binary.stl";
-        template_output_path="/home/csl/catkin_ws/src/linemod_pose_est/config/data/cpu_binary_ensenso_templates.yml";
-        renderer_params_output_path="/home/csl/catkin_ws/src/linemod_pose_est/config/data/cpu_binary_ensenso_renderer_params.yml";
+        stl_file="/home/birl-spai-ubuntu14/ur_ws/src/linemod_pose_estimation/config/stl/memoryChip2.stl";
+        template_output_path="/home/birl-spai-ubuntu14/ur_ws/src/linemod_pose_estimation/config/data/memoryChip2_0_ensenso_templates.yml";
+        renderer_params_output_path="/home/birl-spai-ubuntu14/ur_ws/src/linemod_pose_estimation/config/data/memoryChip2_0_ensenso_renderer_params.yml";
 
     }
     else

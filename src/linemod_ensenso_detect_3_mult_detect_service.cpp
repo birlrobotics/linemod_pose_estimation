@@ -62,10 +62,10 @@ bool sortPointSize(const vector<Point>& contours1,const vector<Point>& contours2
 }
 
 
-std::string linemod_template_path;
-std::string renderer_param_path;
-std::string model_stl_path;
-float detect_score_th;
+std::string chip_template_path;
+std::string chip_renderer_param_path;
+std::string chip_model_stl_path;
+float chip_detect_score_th;
 int icp_max_iter;
 float icp_tr_epsilon;
 float icp_fitness_th;
@@ -74,10 +74,10 @@ uchar clustering_step;
 float orientation_clustering_step;
 int nms_neighbor_size;
 
-std::string linemod_template_path1;
-std::string renderer_param_path1;
-std::string model_stl_path1;
-float detect_score_th1;
+std::string cpu_template_path;
+std::string cpu_renderer_param_path;
+std::string cpu_model_stl_path;
+float cpu_detect_score_th;
 
 struct LinemodData
 {
@@ -309,11 +309,11 @@ public:
         //            median_filter.setInputCloud(pc_ptr);
         //            median_filter.applyFilter(*pc_median_ptr);
 
-        if(detector->classIds ().empty ())
-        {
-            ROS_INFO("Linemod detector is empty");
-            return;
-        }
+        // if(detector->classIds ().empty ())
+        // {
+        //     ROS_INFO("Linemod detector is empty");
+        //     return;
+        // }
 
         //Convert point cloud to depth image
         Mat mat_depth;
@@ -1155,11 +1155,11 @@ public:
         //            median_filter.setInputCloud(pc_ptr);
         //            median_filter.applyFilter(*pc_median_ptr);
 
-        if(detector->classIds ().empty ())
-        {
-            ROS_INFO("Linemod detector is empty");
-            return;
-        }
+        // if(detector->classIds ().empty ())
+        // {
+        //     ROS_INFO("Linemod detector is empty");
+        //     return;
+        // }
 
         //Convert point cloud to depth image
         Mat mat_depth;
@@ -1865,8 +1865,8 @@ bool linemod_pose_callback(linemod_pose_estimation::linemod_pose::Request &req,
 {
    if(req.object_id == 0)
    {
-       linemod_detect detector(linemod_template_path,renderer_param_path,model_stl_path,
-                               detect_score_th,icp_max_iter,icp_tr_epsilon,icp_fitness_th,
+       linemod_detect detector(chip_template_path,chip_renderer_param_path,chip_model_stl_path,
+                               chip_detect_score_th,icp_max_iter,icp_tr_epsilon,icp_fitness_th,
                                icp_maxCorresDist,clustering_step,orientation_clustering_step);
        detector.setNonMaximumSuppressionRadisu(nms_neighbor_size);
 
@@ -1915,7 +1915,8 @@ bool linemod_pose_callback(linemod_pose_estimation::linemod_pose::Request &req,
 
        else
        {
-           cout<<"no memory chip "<<endl;
+        //    cout<<"no memory chip "<<endl;
+           ROS_WARN("no memory chip\n");
 
            res.pose.translation.x = 0.0;
            res.pose.translation.y = 0.0;
@@ -1931,8 +1932,8 @@ bool linemod_pose_callback(linemod_pose_estimation::linemod_pose::Request &req,
 
    else if(req.object_id == 1)
    {
-       linemod_detect1 detector1(linemod_template_path1,renderer_param_path1,model_stl_path1,
-                                 detect_score_th1,icp_max_iter,icp_tr_epsilon,icp_fitness_th,
+       linemod_detect1 detector1(cpu_template_path,cpu_renderer_param_path,cpu_model_stl_path,
+                                 cpu_detect_score_th,icp_max_iter,icp_tr_epsilon,icp_fitness_th,
                                  icp_maxCorresDist,clustering_step,orientation_clustering_step);
        detector1.setNonMaximumSuppressionRadisu(nms_neighbor_size);
 
@@ -2000,12 +2001,15 @@ bool linemod_pose_callback(linemod_pose_estimation::linemod_pose::Request &req,
 
 int main(int argc,char** argv)
 {
-    ros::init(argc,argv,"linemod_detect");
+    ros::init(argc,argv,"linemod_detection");
 
-    linemod_template_path=argv[1];
-    renderer_param_path=argv[2];
-    model_stl_path=argv[3];
-    detect_score_th=atof(argv[4]);
+    // chip path
+    chip_template_path=argv[1];
+    chip_renderer_param_path=argv[2];
+    chip_model_stl_path=argv[3];
+    chip_detect_score_th=atof(argv[4]);
+
+    // common parameter path
     icp_max_iter=atoi(argv[5]);
     icp_tr_epsilon=atof(argv[6]);
     icp_fitness_th=atof(argv[7]);
@@ -2014,11 +2018,17 @@ int main(int argc,char** argv)
     orientation_clustering_step=atof(argv[10]);
     nms_neighbor_size=atoi(argv[11]);
 
-    // do for cpu
-    linemod_template_path1=argv[12];
-    renderer_param_path1=argv[13];
-    model_stl_path1=argv[14];
-    detect_score_th1=atof(argv[15]);
+    // cpu path
+    cpu_template_path=argv[12];
+    cpu_renderer_param_path=argv[13];
+    cpu_model_stl_path=argv[14];
+    cpu_detect_score_th=atof(argv[15]);
+
+    std::cout<< "chip_template_path: " << chip_template_path << std::endl;
+    std::cout<< "chip_renderer_param_path: " << chip_renderer_param_path << std::endl;
+    std::cout<< "chip_model_stl_path: " << chip_model_stl_path << std::endl;
+    std::cout<< "chip_detect_score_th: " << chip_detect_score_th << std::endl;
+
 
     ros::NodeHandle nh2;
 
